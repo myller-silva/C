@@ -70,7 +70,6 @@ void *p_v_menos_y(int *v, int *y, int tam_v, int tam_y, int *tam_z ){
       t++;
     }
   }
-
   *tam_z = t;
   return v_t;
 }
