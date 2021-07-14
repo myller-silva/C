@@ -1,2 +1,0 @@
-int a[10]={0}; //inicializa com 0
-int b[10];     // contem lixo
