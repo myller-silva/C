@@ -14,9 +14,8 @@ int main(int argc, char *argv[]){
     system("cls");
     if(argc!=2){
         printf("Formato:\n\t%s <dim>", argv[0]);
-	    exit(1);
+        
     }
-
     srand(time(NULL)); //semente
 
     int *v1=NULL, *v2=NULL;
