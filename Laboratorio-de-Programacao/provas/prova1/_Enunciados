@@ -1,0 +1,4 @@
+Quest ̃ao 1: [2,5 pontos] Escreva um c ́odigo que exemplifique o uso do vari ́aveis locais static. Explique seu algoritmo por coment ́arios de linha.
+Quest ̃ao 2: [2,5 pontos] Implementar um programa para resolver o seguinte problema: Jos ́e tem 150 cent ́ımetros e cresce 2 cent ́ımetros por ano. O Pedro tem 110 cent ́ımetros e cresce 3 cent ́ımetros por ano. Em quantos anos Pedro ser ́a maior que Jos ́e?
+Quest ̃ao 3: [2,5 pontos] Assumindo que x2 + y2 ≤ 1, com x ≥ 0, y ≥ 0, define se um ponto (x, y) pertence `a Figura H. Verifique se n pontos reais (x,y) dados pertence ou n ̃ao a H. Crie um crit ́erio para encerramento do programa. Descreva esse crit ́erio como coment ́ario na sua resposta.
+Quest ̃ao 4: [2,5 pontos] Fac ̧a um programa que leia um byte do teclado e a seguir zere o segundo e o terceiro bits menos significativos. Apresente o valor resultante em hexadecimal. Utilize operadores bit-a-bit
