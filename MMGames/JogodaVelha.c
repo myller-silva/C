@@ -1,92 +1,67 @@
-// jogo da velha
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
-
-void exibir_j(int *);
-void contagem_regressiva(int );
-int verificar_lcd(int *);
-
+void exibir(char *);
+int win(char *);
 int main(){
-    int n=1;
-    int cont=0;
-    int e=0;
-
-    int j[9]={0};
-    int esc=0;
-
-    do{
+    char j[9] = {'_', '_', '_', '_', '_', '_', '_', '_', '_'};
+    int esc = 0, c = 0;
+    for(c=0; c<9; c++){
         system("cls");
-        puts("\n\t  JOGO DA VELHA");   
-        exibir_j(j);
-
-        printf("\nJogador %d: ", (n%2==0) ? 2 : 1 );
-        scanf("%d", &esc );
-
-        if( (j[esc-1]==0) && (0<esc) && (esc<10) ){
-            j[esc-1] = (n%2==0) ? 2 : 1 ;
-            cont++;
-
-// obs
-            e = verificar_lcd(j);
-            if((e==1)&&(cont>2)) {
+        exibir(j);
+        T:
+        printf("Player N%d: ", c%2==0 ? 1 : 2);
+        scanf("%d", &esc);
+        if(j[esc-1]=='_'){
+            j[esc-1] = c%2==0 ? 'X' : 'O';
+            if( win(j) ){
                 break;
             }
-// obs
         }else{
-            puts("Posicao indisponivel. Tente novamente.");
-            n--;
-            contagem_regressiva(3);
+            puts("Posicao invalida. Tente novamente.");
+            sleep(1);
+            goto T;
         }
-        // e = verificar_lcd(j);
-        // if(e==1){
-        //     break;
-        // }
-        n++;
-    }while(cont!=9);
-
-
+    }    
     system("cls");
-    puts("\n\t  JOGO DA VELHA"); 
-    exibir_j(j);
-    if(e==1){
-        printf("Vencedor: %d\n", (n%2==0) ? 2 : 1 );
+    exibir(j);
+    if(win(j)==0){
+        puts("Empate.");
+    }else{
+        printf("Vencedor: Player N%d\n", c%2 ? 2:1 );
     }
     return 0;
 }
-
-void contagem_regressiva(int k){
+void exibir(char *j){
     int c=0;
-    for(c=k; c>0; c--){
-        printf("%d... ", c);
-        sleep(1);
-    }
-}
-void exibir_j(int *j){
-    int c=0;
+    puts("\n\t>>>JOGO DA VELHA<<<");
     for(c=0; c<9; c++){
-        if(c%3==0){
+        if( c%3==0 ){
             printf("\n\n\t");
         }
-        if(j[c]==1){
-            printf("X\t");
-        }else if(j[c]==2){
-            printf("O\t");
-        }else{
-            printf("_\t");
+        printf(" %c\t", j[c]);
+    }
+    puts("\n");
+}
+int win(char *j){
+    int c=0;
+    // linhas:
+    for(c=0; c<9; c+=3){
+        if( (j[c] != '_') && (j[c] == j[c+1]) && (j[c+1] == j[c+2]) ){
+            return 1;
         }
     }
-    puts("");
-}
-
-
-int verificar_lcd(int *j){
-    // int c=0;
-    int r=0;
-    if  (   (j[0] == j[1] == j[2]) || (j[0] == j[3] == j[6]) || (j[0] == j[4] == j[8])   ) {
-        r = 1;
+    // colunas:
+    for(c=0; c<3; c++){
+        if( (j[c] != '_') && (j[c] == j[c+3]) && (j[c+3] == j[c+6]) ){
+            return 1;
+        }
     }
-
-    return r;
+    // diagonais:
+    if(  (j[0] != '_') && (j[0] == j[4]) && (j[4] == j[8])  ){
+        return 1;
+    }else if(  (j[2] != '_') && (j[2] == j[4]) && (j[4] == j[6])  ){
+        return 1;
+    }
+    return 0;
 }
-
