@@ -26,9 +26,9 @@ int main(){
     system("cls");
     exibir(j);
     if(win(j)==0){
-        puts("Empate.");
+        puts("\n\tEmpate.");
     }else{
-        printf("Vencedor: Player N%d\n", c%2 ? 2:1 );
+        printf("\n\tVencedor: Player N%d\n", c%2 ? 2:1 );
     }
     return 0;
 }
