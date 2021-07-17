@@ -62,6 +62,6 @@ int win(char *j){
         return 1;
     }else if(  (j[2] != '_') && (j[2] == j[4]) && (j[4] == j[6])  ){
         return 1;
-    }
+    }    
     return 0;
 }
