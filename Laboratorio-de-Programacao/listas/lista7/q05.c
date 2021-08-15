@@ -3,15 +3,17 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+struct professor
+  {
+    char nome[20];
+  };
 struct disciplina
 {
-    char nome[20];
-    struct professor
-    {
-        char nome[20];
-    };
+  char nome[20];
+  struct professor prof;
 };
+
 int main(){
 
-    return 0;
+  return 0;
 }
