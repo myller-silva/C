@@ -1,5 +1,4 @@
-// Crie uma Estrutura disciplina em que um dos campos corresponde tambem a uma estrutura pro-
-// fessor.
+// Crie uma Estrutura disciplina em que um dos campos corresponde tambem a uma estrutura professor.
 #include <stdio.h>
 #include <stdlib.h>
 
