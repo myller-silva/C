@@ -14,6 +14,5 @@ struct disciplina
 };
 
 int main(){
-
   return 0;
 }
