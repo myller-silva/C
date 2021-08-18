@@ -16,7 +16,7 @@ typedef union{
 int main(){
   Mutante num;  
   
-  system("clear");
+  system("cls");
   // usando o numero 7 como exemplo:
   num.a = '7';
   printf("\nchar:\t%d\n", num.a); //em ASCII

@@ -14,33 +14,54 @@ typedef struct Node{
   struct Node *prox;
 }NODE;
 
-int main (){
-  NODE *n = NULL;
-  int c=1, pos=-1;
-  char esc[MX];
+void inserir(NODE *);
+void exibir(NODE *);
 
-  srand(time(NULL));
-  system("clear");  
-  do{
-    printf("\n---Node %d---", c);
-    n = realloc(n, sizeof(NODE)*c);
-    printf("\nDigite o valor de X: ");
-    scanf("%d", &(n+c)->x);
-    printf("Digite o valor de Y: ");
-    scanf("%d", &(n+c)->y);    
-    // 
-    printf("Posicao: ");
-    scanf("%d", &pos);
-    //  
-    T: 
-    getchar();
-    printf("Quer continuar? [s/n] : ");  
-    scanf("%s", esc);
-    if(esc[0]!= 's' && esc[0]!= 'n'){
-      goto T;
-    }
-    c++;
-  }while(esc[0]!='n');
+int main (){
+  int qt=0;
+  char esc[]={};
+  NODE *n=NULL;
+
+  system("cls");
+
+  T:
+  n = realloc(n, sizeof(NODE)*(qt+1));  
+  inserir( (n+qt) ); 
+
+  system("cls");
+  puts("");
+
+  for(int c=0; c<(qt+1); c++){
+    printf("node %d: ", c+1);
+    exibir(n+c);
+  }
+  puts("");
+  
+  E:
+  printf("Quer continuar?[s/n] ");
+  scanf("%s", esc);
+
+  switch (esc[0]){
+    case 's':
+      qt++;
+      goto T;    
+    case 'n':
+      return 0;
+    default:
+      goto E;
+  }
+  
 
   return 0;
+}
+
+void inserir(NODE *n){ 
+  printf("X: ");
+  scanf("%d", &( n->x));
+  printf("Y: ");
+  scanf("%d", &( n->y));
+}
+
+void exibir(NODE *n){
+  printf("(%d,%d)\n", n->x, n->y);
 }
