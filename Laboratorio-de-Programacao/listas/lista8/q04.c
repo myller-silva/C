@@ -1,3 +1,6 @@
+// Modifique Node para que a tenha um elemento ponteiro prox do tipo struct node. Esse ponteiro
+// deve apontar para um pr´oximo node do vetor, sendo que o ´ultimo deve apontar para o primeiro.
+// Imprima a m´edia do node atual e do seguinte.
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>

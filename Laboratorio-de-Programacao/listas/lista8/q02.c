@@ -1,3 +1,6 @@
+// Modifique o programa anterior adicionando um campo z com a m´edia aritm´etica de (x, y). A
+// m´edia deve ser calculada por uma fun¸c˜ao e a estrutura passada por referˆencia. O tipo de retorno
+// dessa fun¸c˜ao deve ser void.
 #include <stdio.h>
 #include <stdlib.h>
 

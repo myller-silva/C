@@ -1,3 +1,6 @@
+// Explique uni˜oes em C.
+
+
 /*
 Uma uniao é um tipo especial de estrutura capaz de armazenar um unico membro por vez. Ao contrario da estrutura normal, os membros de uma uniao nao ocupam posicoes consecutivas. Na verdade, todos eles sao armazenados a partir do mesmo endereço de memoria  e por esse motivo , apenas um deles pode existir em um dado momento.
 */

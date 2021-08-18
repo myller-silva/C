@@ -1,3 +1,6 @@
+// Crie uma lista encadeada com 3 nodes. Crie uma fun¸c˜ao para inserir um elemento node na lista e
+// outra fun¸c˜ao para remover.
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>

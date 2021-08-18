@@ -1,3 +1,5 @@
+// Escreva um programa que crie uma Estrutura Node com dois campos (x, y) do tipo inteiro. Realize
+// a leitura e exibi¸c˜ao dos dados dessa Estrutura utilizando um ponteiro para essa estrutura
 #include <stdio.h>
 #include <stdlib.h>
 

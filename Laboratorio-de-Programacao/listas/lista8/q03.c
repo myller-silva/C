@@ -1,4 +1,5 @@
-#include <stdio.h>
+// Modifique os programas anteriores para que agora tenhamos um vetor de Nodes. Utilize a diretiva
+// define para definir a quantidade de elementos.#include <stdio.h>
 #include <stdlib.h>
 
 typedef struct Node

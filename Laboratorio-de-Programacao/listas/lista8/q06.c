@@ -1,4 +1,4 @@
-#include <stdio.h>
+// Exemplifique, com c´odigo, Enumera¸c˜oes em C.#include <stdio.h>
 #include <stdlib.h>
 
 enum dias_em_ingles{
