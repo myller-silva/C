@@ -5,23 +5,22 @@ typedef struct Node
 {
   int x;
   int y;
-  float z;
+  float media;
 } Node ; 
 
 int main(){
   Node *a=NULL;
-
-  a = realloc(a, sizeof(Node)*1);
+  a = malloc(sizeof(Node)*1);  
 
   printf("X: ");
   scanf("%d", &a->x);
   printf("Y: ");
   scanf("%d", &a->y);
-  a->z = (a->x + a->y)/2.0;
+  a->media = (a->x + a->y)/2.0;
 
   printf("x = %d\n", a->x);  
   printf("y = %d\n", a->y);
-  printf("z = %.2f\n", a->z);
+  printf("media = %.2f\n", a->media);
 
   return 0;
 }
