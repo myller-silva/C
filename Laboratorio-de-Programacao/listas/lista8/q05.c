@@ -29,14 +29,13 @@ int main(){
     (n+c)->x = rand()%INTERVALO;
     (n+c)->y = rand()%INTERVALO;    
   }
-  // n1 -> n2 -> n3 -> n1
-  for(int c=0; c<TAM; c++){
-    if(c==TAM-1){
-      (n+c)->prox = n;   
-    }
-    (n+c)->prox = (n+c+1); 
-  }
-
+  // // n1 -> n2 -> n3 -> n1
+  // for(int c=0; c<TAM; c++){
+  //   if(c==TAM-1){
+  //     (n+c)->prox = n;   
+  //   }
+  //   (n+c)->prox = (n+c+1); 
+  // }
 
   menu(n, qt);
   do{
@@ -48,21 +47,27 @@ int main(){
   if( *esc[0] == '0'){
     printf("Node a ser removido: ");
     scanf("%s", esc[0]);
+    pos = atoi(esc[0]);
     remover(n, qt, pos);
     --qt;    
     menu(n, qt);
   }else{
+    printf("Posicao a ser inserido: ");
+    scanf("%s", esc[0]);
+    pos = atoi(esc[0]);
     inserir(n, qt, pos);
     ++qt;
+    menu(n, qt);
   }
   return 0;
 }
 
+
 void menu(NODE *n, int qt){
   int c=0;
-  system("clear");
+  // system("clear");
   for (c=0; c<qt; c++){
-    printf("node %d:\t(%2d, %2d)\n", c, (n+c)->x, (n+c)->y);
+    printf("node %d:\t(x: %2d, y: %2d)\n", c, (n+c)->x, (n+c)->y);
   }
   puts("");
 }
@@ -75,14 +80,7 @@ void msg_remover_ou_inserir(){
 void remover(NODE *n, int qt, int pos){
   NODE *temp = malloc(sizeof(NODE)*(qt-1));
   int c=0; 
-
-  puts("removendo");
-  sleep(1);
-  for(c=3; c>0; c++){
-    printf("%d ", c);
-    sleep(1);
-  }
-
+  
   for(c=0; c<qt; c++){
     if (c==pos){
       continue;
@@ -93,28 +91,26 @@ void remover(NODE *n, int qt, int pos){
   for(c=0; c<qt-1; c++){
     *(n+c) = *(temp+c);
   }
-  free(temp);
+  // free(temp);
 }
 
 void inserir(NODE *n, int qt, int pos){  
-  NODE *temp = malloc(sizeof(NODE)*(qt-1));
+  NODE *temp = malloc(sizeof(NODE)*(qt+1));
   int c=0; 
 
-  puts("inserindo");
-  sleep(1);
-  for(c=3; c>0; c++){
-    printf("%d ", c);
-    sleep(1);
-  }
-  for(c=0; c<qt; c++){
-    if (c==pos){
+  for(c=0; c<qt+1; c++){
+    if(c==pos){
+      printf("x: ");
+      scanf("%d", &(temp+c)->x);
+      printf("y: ");
+      scanf("%d", &(temp+c)->y);
       continue;
     }
     *(temp+c) = *(n+c);
   }
-  n = realloc(n, sizeof(NODE)*(qt-1));
-  for(c=0; c<qt-1; c++){
+  n = realloc(n, sizeof(NODE)*(qt+1));
+  for(c=0; c<qt+1; c++){
     *(n+c) = *(temp+c);
   }
-  free(temp);
+  // free(temp);
 }
