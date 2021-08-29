@@ -19,7 +19,7 @@ int main(){
     
     gerar_xy_float(v, N);
     exibirsoma(v, N); 
-    
+
     return 0;
 }
 
