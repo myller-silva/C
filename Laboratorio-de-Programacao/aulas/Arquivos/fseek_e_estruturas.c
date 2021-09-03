@@ -2,11 +2,21 @@
 #include <stdlib.h>
 #define TAM 10
 
-// fibonacci
-int main(){
-    system("cls");
+struct coord
+{
+    int x;
+    int y;
+};
 
-    int v[TAM] = {0, 1};
+
+int main(int argc, char *argv[]){
+    system("cls");
+    if(argc!=2){
+        printf("Formato:\n\t%s <NomeArquivo>\n", argv[0]);
+        exit(1);
+    }
+
+    int v[TAM];
     FILE *fp;
 
     // gerar sequencia de fibonacci:    
@@ -37,6 +47,7 @@ int main(){
     int valor_lido;
     fread(&valor_lido, sizeof(int), 1, fp);
     printf("O elemento na posicao %d eh o %d\n\n", pos, valor_lido);
+
 
     return 0;
 }
