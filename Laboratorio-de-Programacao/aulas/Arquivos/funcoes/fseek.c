@@ -1,21 +1,21 @@
 #include <stdio.h>
 #include <stdlib.h>
-#define TAM 10
+#define MX 10
 
 // fibonacci
 int main(){
     system("cls");
 
-    int v[TAM] = {0, 1};
+    int v[MX] = {0, 1};
     FILE *fp;
 
     // gerar sequencia de fibonacci:    
-    for(int c=0; c<TAM-2; c++){
+    for(int c=0; c<MX-2; c++){
         v[c+2] =v[c] + v[c+1];
     }
     // exibir:
     puts("\n\n>>> Sequencia de fibonacci <<<");
-    for(int c=0; c<TAM; c++){
+    for(int c=0; c<MX; c++){
         printf("%d ", v[c]);
     }
     puts("\n");

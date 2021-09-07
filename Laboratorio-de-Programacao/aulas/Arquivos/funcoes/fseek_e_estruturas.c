@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#define TAM 10
+#define MX 10
 #define I 100
 
 
@@ -19,20 +19,20 @@ int main(int argc, char *argv[]){
         exit(1);
     }
 
-    struct coord v[TAM];
+    struct coord v[MX];
     FILE *fp;
     
     srand(time(NULL));
 
     // gerar valores das estruturas:   
-    for(int c=0; c<TAM; c++){
+    for(int c=0; c<MX; c++){
         (v+c)->x = rand()%I;
         (v+c)->y = rand()%I;;
     }
 
     // exibir valores das estruturas:
     puts("\n\n\n>>> coordenadas <<<\n");
-    for(int c=0; c<TAM; c++){
+    for(int c=0; c<MX; c++){
         printf("%d: (%d, %d)\n", c, (v+c)->x, (v+c)->y);
     }
     // abrir:
@@ -48,7 +48,7 @@ int main(int argc, char *argv[]){
     P:
     printf("\n\nDigite a coordenada que voce quer ver: ");
     scanf("%d", &pos);
-    if( pos>TAM-1 || pos<0 ){
+    if( pos>MX-1 || pos<0 ){
         printf("A coordenada %d eh invalida, tente novamente", pos);
         goto P;
     }

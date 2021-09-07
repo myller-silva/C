@@ -1,10 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
-#define TAM 80
+#define MX 80
 
 int main(){
-    char nomeArq[TAM] ;
-    char contArq[TAM] ;
+    char nomeArq[MX] ;
+    char contArq[MX] ;
     FILE *pa;
     
     system("cls");
@@ -21,7 +21,7 @@ int main(){
     // escrita:
     puts("Digite o conteudo do arquivo: ");
     do{
-        fgets(contArq, TAM-1, stdin);
+        fgets(contArq, MX-1, stdin);
         fputs(contArq, pa);
     }while(  contArq[0] != '\n' );
     // rebubinar:
