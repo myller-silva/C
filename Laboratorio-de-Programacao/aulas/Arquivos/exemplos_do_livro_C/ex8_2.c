@@ -1,3 +1,4 @@
+// transformar para minusculo ou maiusculo
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
