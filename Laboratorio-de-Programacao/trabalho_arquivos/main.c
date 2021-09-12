@@ -20,7 +20,7 @@ void atualizar(char *, int );
 
 
 int main(){
-	system("clear");
+	system("cls");
 	char *arq_tot_pecas = "tot_cad.txt";	
 	char *nome_arq = "hardware.dat";
 	int tot = tot_pecas( arq_tot_pecas );
@@ -29,6 +29,7 @@ int main(){
 	do{
 		menu();
 		scanf("%d", &op);
+		puts("");
 		switch(op){
 			case 1:
 				inserir(nome_arq, tot);
@@ -56,7 +57,7 @@ int main(){
     return 0;
 }
 void menu(){
-    puts("[1] Inserir");
+    puts("\n[1] Inserir");
     puts("[2] Listagem");
     puts("[3] Remover");
     puts("[4] Atualizar");
@@ -64,10 +65,10 @@ void menu(){
     printf(">>> ");
 }
 int tot_pecas(char *nome_arq){
-	int qt;
-	FILE *fp=fopen(nome_arq, "r");
+	int qt=0;
+	FILE *fp=fopen(nome_arq, "a+");
 	if(!fp){
-		perror("Verifique se ha o arquivo contendo a quantidade de ferramentas atuais");
+		perror("Erro");
 		exit(6);
 	}
 	fscanf(fp, "%d", &qt);	
@@ -101,7 +102,7 @@ void inserir(char *nome_arq, int tot){
 	fclose(fp);
 }
 void listar(char *nome_arq, int tot){
-	system("clear");
+	system("cls");
     char *txt[] = {"ID", "NOME", "QT", "CUSTO"};
     FILE *l = fopen(nome_arq, "rb");
     FUNC lido[tot];
@@ -201,4 +202,6 @@ void remover(char *nome_arq, int tot){
 		fwrite(&novo[c], sizeof(FUNC), 1, b);
 	}
 	fclose(b);
+	
+	printf("\nFerramenta >> %s << foi removida\n", old[e].nome);
 }
