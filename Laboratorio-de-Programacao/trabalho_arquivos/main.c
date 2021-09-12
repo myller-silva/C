@@ -48,9 +48,8 @@ int main(){
 				atualizar(nome_arq, tot);
 				break;
 		}
-		if(op>4 || 0>op){
-			puts("Operacao invalida");
-		}
+		if(op>4 || 0>op) puts("Operacao invalida");
+				
 		atualizar_tot(arq_tot_pecas, tot);
 	}
 	while(op);
