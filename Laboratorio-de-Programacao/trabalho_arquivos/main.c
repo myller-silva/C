@@ -311,18 +311,13 @@ void ordenar_por_id(char *nome_arq, int tot){
 	fclose(fp);
 }
 
-
-// bug:
 void ordenar_por_nome(char *nome_arq, int tot){
 	FILE *fp = fopen(nome_arq, "rb");
 	FUNC est[tot];
 	FUNC aux;
 	int i, j;
-
 	fread(est, sizeof(FUNC), tot, fp);
 	fclose(fp);
-
-	// bug:	
 	// ordem crescente:
 	for( i=0;i<tot;i++){
         for( j=0;j<tot;j++){
