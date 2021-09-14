@@ -1,32 +1,38 @@
+#include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
-typedef struct func{
-	int id;
-	char nome[30];
-	int qt;
-	float custo;
-}FUNC;
-
-void ordenar_por_nome(char *nome_arq, int tot);
 
 int main(){
+    // char vetor[10][50], aux[50];
+    char vetor[10][30] = {"maca", "banana", "legume", "tomate", "uva", "laranja", "verde", "pimenta", "abacaxi", "kiwi"};
+    char aux[30];
+    int i, j;
     system("cls");
-    int tot;
-	FILE *fp = fopen("tot_cad.txt", "r");
-    fscanf(fp, "%d", &tot);
-    fclose(fp);
 
-    fp = fopen("hardware.dat", "rb");
-	FUNC est[tot];
-    fread(est, sizeof(FUNC), tot, fp);
-    fclose(fp);
-	
-	for(int c=0; c<tot; c++){
-        puts(est[c].nome);
+    // for(i=0;i<10;i++){
+    //     printf("String %d: ", i);
+    //     fgets(vetor[i], 50, stdin);
+    // }
+    for(int c=0; c<10; c++){
+        printf("%s ", vetor[c]);     
     }
-    puts("");
+    puts("\n");
 
+    for(i=0;i<10;i++){
+        for(j=0;j<10;j++){
+            if(strcmp(vetor[i], vetor[j]) < 0){
+                strcpy(aux, vetor[i]);
+                strcpy(vetor[i], vetor[j]);
+                strcpy(vetor[j], aux);
+            }
+        }
+    }
+    for(i=0;i<10;i++){
+        printf("%s ", vetor[i]);  
+    }
+    puts("\n");
     
-    return 0;
+    system("pause");
+
+    return(0);
 }

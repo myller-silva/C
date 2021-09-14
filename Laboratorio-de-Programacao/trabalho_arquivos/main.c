@@ -11,7 +11,6 @@ typedef struct func{
 
 int tot_pecas(char *);
 void atualizar_tot(char *, int );
-
 void menu();
 void inserir(char *, int );
 void listar(char *, int );
@@ -20,6 +19,7 @@ void atualizar(char *, int );
 int verificar_nome(char *, int , char *);
 int verificar_ID(char*, int , int );
 void ordenar_por_id(char *, int );
+void ordenar_por_nome(char *, int );
 
 int main(){
 	system("cls");
@@ -54,7 +54,11 @@ int main(){
 				break;
 			case 5:
 				ordenar_por_id(nome_arq, tot);
-				puts("\nEstoque ordenado");
+				puts("\nEstoque ordenado por ID");
+				break;
+			case 6:
+				ordenar_por_nome(nome_arq, tot);
+				puts("\nEstoque ordenado por ordem alfabetica");
 				break;
 			default:
 				puts("\nOperacao invalida");
@@ -72,6 +76,7 @@ void menu(){
     puts("[3] Remover");
     puts("[4] Atualizar");
 	puts("[5] Ordenar estoque por ID");
+	puts("[6] Ordenar estoque por ordem alfabetica");	
     puts("[0] Encerrar programa");
     printf(">>> ");
 }
@@ -306,3 +311,29 @@ void ordenar_por_id(char *nome_arq, int tot){
 	fclose(fp);
 }
 
+
+// bug:
+void ordenar_por_nome(char *nome_arq, int tot){
+	FILE *fp = fopen(nome_arq, "rb");
+	FUNC est[tot];
+	FUNC aux;
+	int i, j;
+
+	fread(est, sizeof(FUNC), tot, fp);
+	fclose(fp);
+
+	// bug:	
+	// ordem crescente:
+	for( i=0;i<tot;i++){
+        for( j=0;j<tot;j++){
+            if( strcmp(est[i].nome, est[j].nome) < 0){
+				aux = est[i];
+				est[i] = est[j];
+				est[j] = aux;
+            }
+        }
+    }
+	fp = fopen(nome_arq, "wb");
+	fwrite(est, sizeof(FUNC), tot, fp);
+	fclose(fp);	
+}
