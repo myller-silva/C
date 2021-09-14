@@ -19,7 +19,7 @@ void atualizar(char *, int );
 int verificar_nome(char *, int , char *);
 int verificar_ID(char*, int , int );
 void ordenar_por_id(char *, int );
-void ordenar_por_nome(char *, int );
+void ordem_alfabetica(char *, int );
 
 int main(){
 	system("cls");
@@ -57,7 +57,7 @@ int main(){
 				puts("\nEstoque ordenado por ID");
 				break;
 			case 6:
-				ordenar_por_nome(nome_arq, tot);
+				ordem_alfabetica(nome_arq, tot);
 				puts("\nEstoque ordenado por ordem alfabetica");
 				break;
 			default:
@@ -310,8 +310,7 @@ void ordenar_por_id(char *nome_arq, int tot){
 	fwrite(est_ord, sizeof(FUNC), tot, fp);
 	fclose(fp);
 }
-
-void ordenar_por_nome(char *nome_arq, int tot){
+void ordem_alfabetica(char *nome_arq, int tot){
 	FILE *fp = fopen(nome_arq, "rb");
 	FUNC est[tot];
 	FUNC aux;
