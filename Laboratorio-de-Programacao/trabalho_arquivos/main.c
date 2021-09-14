@@ -61,7 +61,7 @@ int main(){
 		}
 		atualizar_tot(arq_tot_pecas, tot);
 	}while(op);
-	
+
     return 0;
 }
 
@@ -71,7 +71,7 @@ void menu(){
     puts("[2] Listagem");
     puts("[3] Remover");
     puts("[4] Atualizar");
-	puts("[5] Ordenar estoque por ID");	
+	puts("[5] Ordenar estoque por ID");
     puts("[0] Encerrar programa");
     printf(">>> ");
 }
@@ -272,7 +272,6 @@ int verificar_ID(char*nome_arq, int tot, int ID){
 	}
 	return 0;
 }
-
 void ordenar_por_id(char *nome_arq, int tot){
 	FILE *fp = fopen(nome_arq, "rb");
 	FUNC est[tot];
