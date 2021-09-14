@@ -37,7 +37,7 @@ int main(){
 				break;
 			case 1:
 				inserir(nome_arq, tot);
-				puts("Ferramenta adicionada");
+				puts("\nFerramenta adicionada");
 				tot++;
 				break;
 			case 2:
@@ -45,19 +45,19 @@ int main(){
 				break;
 			case 3:
 				if(tot) remover(nome_arq, tot);
-				puts("Ferramenta removida");
+				puts("\nFerramenta removida");
 				tot--;
 				break;
 			case 4:
 				atualizar(nome_arq, tot);
-				puts("Ferramenta atualizada");
+				puts("\nFerramenta atualizada");
 				break;
 			case 5:
 				ordenar_por_id(nome_arq, tot);
-				puts("Estoque ordenado");
+				puts("\nEstoque ordenado");
 				break;
 			default:
-				puts("Operacao invalida");
+				puts("\nOperacao invalida");
 		}
 		atualizar_tot(arq_tot_pecas, tot);
 	}while(op);
@@ -139,14 +139,12 @@ void listar(char *nome_arq, int tot){
     for(int c=0; c<tot; c++){
         fread(&lido[c], sizeof(FUNC), 1, l);
     }
-    puts("\t>>> listagem <<<\n");
-    printf("%3.3s %15.10s %5.3s   %s\n\n", txt[0], txt[1], txt[2], txt[3]);
+    printf("%3.3s %15.10s %5.3s\t%s\n\n", txt[0], txt[1], txt[2], txt[3]);
 
     for(int c=0; c<tot; c++){
-        printf("%.3d %15.10s %5.3d R$%6.2f\n", lido[c].id, lido[c].nome, lido[c].qt, lido[c].custo);
+        printf("%.3d %15.10s %5.3d\tR$%6.2f\n", lido[c].id, lido[c].nome, lido[c].qt, lido[c].custo);
     }	
-    puts("");
-
+    // puts("");
     fclose(l);
 }
 void atualizar(char *nome_arq, int tot){
@@ -307,3 +305,4 @@ void ordenar_por_id(char *nome_arq, int tot){
 	fwrite(est_ord, sizeof(FUNC), tot, fp);
 	fclose(fp);
 }
+
