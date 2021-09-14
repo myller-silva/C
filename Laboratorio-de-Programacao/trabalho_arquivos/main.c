@@ -20,6 +20,7 @@ int verificar_nome(char *, int , char *);
 int verificar_ID(char*, int , int );
 void ordenar_por_id(char *, int );
 void ordem_alfabetica(char *, int );
+void validar_FILE(FILE * , char *, int );
 
 int main(){
 	system("cls");
@@ -83,30 +84,29 @@ void menu(){
 int tot_pecas(char *nome_arq){
 	int qt=0;
 	FILE *fp=fopen(nome_arq, "a+");
-	if(!fp){
-		perror("Erro");
-		exit(6);
-	}
+	validar_FILE(fp , "tot_pecas", 1);
+	// if(!fp){
+	// 	perror("Erro");
+	// 	exit(6);
+	// }
 	fscanf(fp, "%d", &qt);	
 	fclose(fp);
 	return qt;
 }
 void atualizar_tot(char *nome_arq , int tot){
 	FILE *fp=fopen(nome_arq, "w");
-	if(!fp){
-		perror("Erro");
-	}
+	validar_FILE(fp , "atualiar_tot", 2);
+	// if(!fp){
+	// 	perror("Erro");
+	//  exit(2);
+	// }
 	fprintf(fp, "%d", tot);
 	fclose(fp);
 }
 void inserir(char *nome_arq, int tot){
 	FILE *fp=fopen(nome_arq, "ab");	
+	validar_FILE(fp , "inserir", 3);
 	FUNC n;
-	if(!fp){
-		perror("Erro");
-		exit(2);
-	}
-	// n.id = tot;
 	ID:
 	printf("ID: ");
 	scanf("%d", &n.id);
@@ -133,34 +133,28 @@ void inserir(char *nome_arq, int tot){
 void listar(char *nome_arq, int tot){
 	system("cls");
     char *txt[] = {"ID", "NOME", "QT", "CUSTO"};
-    FILE *l = fopen(nome_arq, "rb");
-    FUNC lido[tot];
+    FUNC est[tot];
+	
+    FILE *fp = fopen(nome_arq, "rb");
+	validar_FILE(fp , "listar", 4);
 
-    if(!l){
-		perror("Erro");
-		exit(5);
-	}
+	// ler:
+    fread(est, sizeof(FUNC), tot, fp);
+    fclose(fp);
 
-    for(int c=0; c<tot; c++){
-        fread(&lido[c], sizeof(FUNC), 1, l);
-    }
+	// exibir:
     printf("%3.3s %15.10s %5.3s\t%s\n\n", txt[0], txt[1], txt[2], txt[3]);
-
     for(int c=0; c<tot; c++){
-        printf("%.3d %15.10s %5.3d\tR$%6.2f\n", lido[c].id, lido[c].nome, lido[c].qt, lido[c].custo);
-    }	
-    // puts("");
-    fclose(l);
+        printf("%.3d %15.10s %5.3d\tR$%6.2f\n", est[c].id, est[c].nome, est[c].qt, est[c].custo);
+    }
 }
 void atualizar(char *nome_arq, int tot){
-	FILE *fp = fopen(nome_arq, "rb");
-	if(!fp){
-		perror("Erro");
-		exit(13);
-	}
 	FUNC est[tot];
 	FUNC n;
 	int id;
+
+	FILE *fp = fopen(nome_arq, "rb");
+	validar_FILE(fp, "atualizar", 5);
 	fread(est, sizeof(FUNC), tot, fp);
 	fclose(fp);
 
@@ -177,7 +171,7 @@ void atualizar(char *nome_arq, int tot){
 	scanf("%d", &n.id);
 	if( verificar_ID(nome_arq, tot, n.id) && n.id!=id ){
 		puts("Ja existe uma ferramenta com este ID.\nTente novamente.(o antigo ID eh aceitavel)");
-		goto N;
+		goto I;
 	}
 
 	N:
@@ -205,20 +199,20 @@ void atualizar(char *nome_arq, int tot){
 		}
 	}
 	fp = fopen(nome_arq, "wb");
+	validar_FILE(fp, "atualizar", 6);
 	fwrite(est, sizeof(FUNC), tot, fp);
 	fclose(fp);
 }
 void remover(char *nome_arq, int tot){
 	FILE *fp = fopen(nome_arq, "rb");
+	validar_FILE(fp, "remover", 7);
+
 	FUNC est[tot];
 	FUNC n_est[tot-1];
 	int id;
 	int k=0;
-	if(!fp){
-		perror("Erro");
-		exit(14);
-	}
-	printf("Id da ferramenta a ser remvida: ");
+
+	printf("Id da ferramenta a ser removida: ");
 	scanf("%d", &id);
 	fread(est, sizeof(FUNC), tot, fp);
 	fclose(fp);
@@ -230,27 +224,20 @@ void remover(char *nome_arq, int tot){
 		k++;
 	}
 	fp = fopen(nome_arq, "wb");
-	if(!fp){
-		perror("Erro");
-		exit(15);
-	}
-	fwrite(n_est, sizeof(FUNC), tot-1, fp);
+	validar_FILE(fp, "remover", 8);
+
+	fwrite(n_est, sizeof(FUNC), tot-1, fp);	
 	fclose(fp);
 }
 int verificar_nome(char *nome_arq, int tot, char *nome_ferramenta){
 	FILE *fp = fopen(nome_arq, "rb");
+	validar_FILE(fp, "verificar_nome", 9);
 	FUNC est[tot];
-
-	if(!fp){
-		perror("Erro");
-		exit(11);
-	}
-
-	for(int c=0; c<tot; c++){
-        fread(&est[c], sizeof(FUNC), 1, fp);
-    }
+	// for(int c=0; c<tot; c++){
+    //     fread(&est[c], sizeof(FUNC), 1, fp);
+    // }
+	fread(est, sizeof(FUNC), tot, fp);
 	fclose(fp);
-
 	for(int c=0; c<tot; c++){
 		if( !strcmp(est[c].nome, nome_ferramenta) ){
 			return 1;
@@ -260,14 +247,10 @@ int verificar_nome(char *nome_arq, int tot, char *nome_ferramenta){
 }
 int verificar_ID(char*nome_arq, int tot, int ID){
 	FILE *fp = fopen(nome_arq, "rb");
-	if(!fp){
-		perror("Erro");
-		exit(12);
-	}
+	validar_FILE(fp, "verificar_ID", 10);
 	FUNC est[tot];
-	// obs:
 	fread(est, sizeof(FUNC), tot, fp);
-	
+	fclose(fp);	
 	for(int c=0; c<tot; c++){
 		if(est[c].id == ID){
 			return 1;
@@ -276,47 +259,40 @@ int verificar_ID(char*nome_arq, int tot, int ID){
 	return 0;
 }
 void ordenar_por_id(char *nome_arq, int tot){
-	FILE *fp = fopen(nome_arq, "rb");
-	FUNC est[tot];
-	FUNC est_ord[tot];
-	int i, j, aux, c;
-	int ID_s[tot];
-
-	fread(est, sizeof(FUNC), tot, fp);
-	fclose(fp);
-
-	for(i=0; i<tot; i++){
-		ID_s[i] = est[i].id;
-	}
-	// ordenar vec:
-	for(i=1; i<tot; i++){
-		for(j=tot-1; j>=i; j--){
-			if(ID_s[j-1]>ID_s[j]){
-				aux = ID_s[j-1];
-				ID_s[j-1] = ID_s[j];
-				ID_s[j] = aux;
-			}			
-		}
-	}
-	// ordenar estoque:
-	for(int c=0; c<tot; c++){
-		for(int k=0; k<tot; k++){
-			if(est[k].id == ID_s[c]){
-				est_ord[c] = est[k];
-			}
-		}
-	}
-	fp = fopen(nome_arq, "wb");
-	fwrite(est_ord, sizeof(FUNC), tot, fp);
-	fclose(fp);
-}
-void ordem_alfabetica(char *nome_arq, int tot){
-	FILE *fp = fopen(nome_arq, "rb");
 	FUNC est[tot];
 	FUNC aux;
 	int i, j;
+
+	FILE *fp = fopen(nome_arq, "rb");
+	validar_FILE(fp, "ordenar por IP", 11);
 	fread(est, sizeof(FUNC), tot, fp);
 	fclose(fp);
+
+	// ordenar estoque:
+	for(i=1; i<tot; i++){
+		for(j=tot-1; j>=i; j--){
+			if(est[j-1].id>est[j].id){
+				aux = est[j-1];
+				est[j-1] = est[j];
+				est[j] = aux;
+			}			
+		}
+	}
+	fp = fopen(nome_arq, "wb");
+	validar_FILE(fp, "ordenar por IP", 12);
+	fwrite(est, sizeof(FUNC), tot, fp);
+	fclose(fp);
+}
+void ordem_alfabetica(char *nome_arq, int tot){
+	FUNC est[tot];
+	FUNC aux;
+	int i, j;
+
+	FILE *fp = fopen(nome_arq, "rb");
+	validar_FILE(fp, "ordem_alfabetica", 13);	
+	fread(est, sizeof(FUNC), tot, fp);
+	fclose(fp);
+
 	// ordem crescente:
 	for( i=0;i<tot;i++){
         for( j=0;j<tot;j++){
@@ -328,6 +304,14 @@ void ordem_alfabetica(char *nome_arq, int tot){
         }
     }
 	fp = fopen(nome_arq, "wb");
+	validar_FILE(fp, "ordem_alfabetica", 13);	
 	fwrite(est, sizeof(FUNC), tot, fp);
 	fclose(fp);	
 }
+void validar_FILE(FILE *fp , char *msg, int valor_exit){
+	if(!fp){
+		fprintf(stderr, "Erro em: %s\n", msg);
+		exit(valor_exit);
+	}
+}
+
