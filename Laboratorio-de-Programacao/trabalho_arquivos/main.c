@@ -17,7 +17,8 @@ void inserir(char *, int );
 void listar(char *, int );
 void remover(char *, int );
 void atualizar(char *, int );
-
+int verificar_nome(char *, int , char *);
+int verificar_ID(char*, int , int );
 
 int main(){
 	system("cls");
@@ -49,12 +50,14 @@ int main(){
 				break;
 		}
 		if(op>4 || 0>op) puts("Operacao invalida");
-				
+
 		atualizar_tot(arq_tot_pecas, tot);
 	}
 	while(op);
     return 0;
 }
+
+
 void menu(){
     puts("\n[1] Inserir");
     puts("[2] Listagem");
@@ -89,9 +92,22 @@ void inserir(char *nome_arq, int tot){
 		perror("Erro");
 		exit(2);
 	}
-	n.id = tot;
+	// n.id = tot;
+	ID:
+	printf("ID: ");
+	scanf("%d", &n.id);
+	if( verificar_ID(nome_arq, tot, n.id) ){
+		puts("Ja existe uma ferramenta com este ID.\nTente novamente.");
+		goto ID;
+	}
+	N:	
 	printf("Nome: ");
 	scanf("%s", n.nome);
+	if( verificar_nome(nome_arq, tot, n.nome) ){
+		puts("Ja existe uma ferramenta com este nome.\nTente Novamente.");
+		goto N;
+	}
+
 	printf("qt: ");
 	scanf("%d", &n.qt);
 	printf("custo: ");
@@ -125,82 +141,126 @@ void listar(char *nome_arq, int tot){
     fclose(l);
 }
 void atualizar(char *nome_arq, int tot){
-    int id;
-    FILE *fp = fopen(nome_arq, "rb");
-    FUNC v[tot];
-    if(!fp) perror("Erro");
-    // recuperar:
-    for(int c=0; c<tot; c++){
-        fread(&v[c], sizeof(FUNC), 1, fp);        
-    }
-    fclose(fp);
+	FILE *fp = fopen(nome_arq, "rb");
+	if(!fp){
+		perror("Erro");
+		exit(13);
+	}
+	FUNC est[tot];
+	FUNC n;
+	int id;
+	fread(est, sizeof(FUNC), tot, fp);
+	fclose(fp);
 
-    T:
-    printf("ID da ferramenta que deseja atualizar: ");
-    scanf("%d", &id);
-    if( id<0 || tot<=id ){
-        puts("ID invalido, tente novamente.");
-        goto T;
-    }
-    printf("Atualizando ferramenta: %s\n", v[id].nome);
-    // atualizar:
-    printf("Quantidade atual: ");
-    scanf("%d", &v[id].qt);
-    printf("Custo atual: ");
-    scanf("%f", &v[id].custo);
-    // salvar:
-    fp = fopen(nome_arq, "wb");
-    if(!fp) perror("Erro");
-    for(int c=0; c<tot; c++){
-        fwrite(&v[c], sizeof(FUNC), 1, fp);        
-    }	
-    fclose(fp);
-	puts("\n>>>Ferramenta atualizada<<<\n");    
+	ID:
+	printf("ID da ferramenta: ");
+	scanf("%d", &id);
+	if( !verificar_ID(nome_arq, tot, id) ){
+		puts("ID invalido.\nTente novamente.");
+		goto ID;
+	}
+
+	I:
+	printf("Novo ID: ");
+	scanf("%d", &n.id);
+	if( verificar_ID(nome_arq, tot, n.id) && n.id!=id ){
+		puts("Ja existe uma ferramenta com este ID.\nTente novamente.(o antigo ID eh aceitavel)");
+		goto N;
+	}
+
+	N:
+	printf("Nome: ");
+	scanf("%s", n.nome);	
+	int e=0;
+	if( verificar_nome(nome_arq, tot, n.nome) ){
+		for(int c=0; c<tot; c++){
+			if(est[c].id == id){
+				e = strcmp( est[c].nome, n.nome );
+			}
+		}
+	}
+	if(e){
+		puts("Ja existe uma ferramenta com este nome.\nTente novamente.(o nome antigo eh aceitavel).\n");
+		goto N;
+	}
+	printf("Qt atual: ");
+	scanf("%d", &n.qt);
+	printf("Custo atual: ");
+	scanf("%f", &n.custo);	
+	for(int c=0; c<tot; c++){
+		if(est[c].id == id){
+			est[c] = n;
+		}
+	}
+	fp = fopen(nome_arq, "wb");
+	fwrite(est, sizeof(FUNC), tot, fp);
+	fclose(fp);
 }
 void remover(char *nome_arq, int tot){
-	FILE *a = fopen(nome_arq, "rb");
-	
-	int e;
-	if(!a){
-		perror("Erro");	
-		exit(8);
-	}	
-	// ler:
-	R:
-	printf("ID da ferramenta que deseja remover: ");
-	scanf("%d", &e);
-	if(e<0 || tot<=e){
-		printf("ID invalido. Apenas numeros no intervalo de [0, %d]\n", tot-1);
-		goto R;
-	}
-	FUNC old[tot];
-	FUNC novo[tot-1];
-	// ler:	
-	for(int c=0; c<tot; c++){
-		fread(&old[c], sizeof(FUNC), 1, a);
-	}
-	fclose(a);
+	FILE *fp = fopen(nome_arq, "rb");
+	FUNC est[tot];
+	FUNC n_est[tot-1];
+	int id;
 	int k=0;
+	if(!fp){
+		perror("Erro");
+		exit(14);
+	}
+	printf("Id da ferramenta a ser remvida: ");
+	scanf("%d", &id);
+	fread(est, sizeof(FUNC), tot, fp);
+	fclose(fp);
 	for(int c=0; c<tot; c++){
-		if(c==e){
+		if(est[c].id == id){
 			continue;
 		}
-		if(c<e){
-			novo[k].id = old[c].id;
-		}else{
-			novo[k].id = old[c].id - 1;
-		}		
-		strcpy(novo[k].nome, old[c].nome);
-		novo[k].qt = old[c].qt;
-		novo[k].custo = old[c].custo;
+		n_est[k] = est[c];
 		k++;
 	}
-	// escrever:	
-	FILE *b = fopen(nome_arq, "wb");	
-	for(int c=0; c<tot-1; c++){
-		fwrite(&novo[c], sizeof(FUNC), 1, b);
+	fp = fopen(nome_arq, "wb");
+	if(!fp){
+		perror("Erro");
+		exit(15);
 	}
-	fclose(b);
+	fwrite(n_est, sizeof(FUNC), tot-1, fp);
+	fclose(fp);
+	puts("Ferramenta removida");
+}
+int verificar_nome(char *nome_arq, int tot, char *nome_ferramenta){
+	FILE *fp = fopen(nome_arq, "rb");
+	FUNC est[tot];
+
+	if(!fp){
+		perror("Erro");
+		exit(11);
+	}
+
+	for(int c=0; c<tot; c++){
+        fread(&est[c], sizeof(FUNC), 1, fp);
+    }
+	fclose(fp);
+
+	for(int c=0; c<tot; c++){
+		if( !strcmp(est[c].nome, nome_ferramenta) ){
+			return 1;
+		}
+	}
+	return 0;
+}
+int verificar_ID(char*nome_arq, int tot, int ID){
+	FILE *fp = fopen(nome_arq, "rb");
+	if(!fp){
+		perror("Erro");
+		exit(12);
+	}
+	FUNC est[tot];
+	// obs:
+	fread(est, sizeof(FUNC), tot, fp);
 	
-	printf("\nFerramenta >> %s << foi removida\n", old[e].nome);
+	for(int c=0; c<tot; c++){
+		if(est[c].id == ID){
+			return 1;
+		}
+	}
+	return 0;
 }
