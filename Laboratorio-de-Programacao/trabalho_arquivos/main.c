@@ -85,10 +85,6 @@ int tot_pecas(char *nome_arq){
 	int qt=0;
 	FILE *fp=fopen(nome_arq, "a+");
 	validar_FILE(fp , "tot_pecas", 1);
-	// if(!fp){
-	// 	perror("Erro");
-	// 	exit(6);
-	// }
 	fscanf(fp, "%d", &qt);	
 	fclose(fp);
 	return qt;
@@ -96,10 +92,6 @@ int tot_pecas(char *nome_arq){
 void atualizar_tot(char *nome_arq , int tot){
 	FILE *fp=fopen(nome_arq, "w");
 	validar_FILE(fp , "atualiar_tot", 2);
-	// if(!fp){
-	// 	perror("Erro");
-	//  exit(2);
-	// }
 	fprintf(fp, "%d", tot);
 	fclose(fp);
 }
@@ -107,21 +99,24 @@ void inserir(char *nome_arq, int tot){
 	FILE *fp=fopen(nome_arq, "ab");	
 	validar_FILE(fp , "inserir", 3);
 	FUNC n;
-	ID:
-	printf("ID: ");
-	scanf("%d", &n.id);
-	if( verificar_ID(nome_arq, tot, n.id) ){
-		puts("Ja existe uma ferramenta com este ID.\nTente novamente.");
-		goto ID;
-	}
-	N:	
-	printf("Nome: ");
-	scanf("%s", n.nome);
-	if( verificar_nome(nome_arq, tot, n.nome) ){
-		puts("Ja existe uma ferramenta com este nome.\nTente Novamente.");
-		goto N;
-	}
-
+	do{
+		printf("ID: ");
+		scanf("%d", &n.id);
+		if( verificar_ID(nome_arq, tot, n.id) ){
+			puts("Ja existe uma ferramenta com este ID.\nTente novamente.");
+		}else{
+			break;
+		}
+	}while(1);
+	do{
+		printf("Nome: ");
+		scanf("%s", n.nome);
+		if( verificar_nome(nome_arq, tot, n.nome) ){
+			puts("Ja existe uma ferramenta com este nome.\nTente Novamente.");
+		}else{
+			break;
+		}
+	}while(1);
 	printf("qt: ");
 	scanf("%d", &n.qt);
 	printf("custo: ");
@@ -158,41 +153,47 @@ void atualizar(char *nome_arq, int tot){
 	fread(est, sizeof(FUNC), tot, fp);
 	fclose(fp);
 
-	ID:
-	printf("ID da ferramenta: ");
-	scanf("%d", &id);
-	if( !verificar_ID(nome_arq, tot, id) ){
-		puts("ID invalido.\nTente novamente.");
-		goto ID;
-	}
+	do{
+		printf("ID da ferramenta: ");
+		scanf("%d", &id);
+		if( !verificar_ID(nome_arq, tot, id) ){
+			puts("ID invalido.\nTente novamente.");
+		}else{
+			break;
+		}
+	}while(1);
 
-	I:
-	printf("Novo ID: ");
-	scanf("%d", &n.id);
-	if( verificar_ID(nome_arq, tot, n.id) && n.id!=id ){
-		puts("Ja existe uma ferramenta com este ID.\nTente novamente.(o antigo ID eh aceitavel)");
-		goto I;
-	}
+	do{
+		printf("Novo ID: ");
+		scanf("%d", &n.id);
+		if( verificar_ID(nome_arq, tot, n.id) && n.id!=id ){
+			puts("Ja existe uma ferramenta com este ID.\nTente novamente.(o antigo ID eh aceitavel)");
+		}else{
+			break;
+		}
+	}while(1);
 
-	N:
-	printf("Nome: ");
-	scanf("%s", n.nome);	
-	int e=0;
-	if( verificar_nome(nome_arq, tot, n.nome) ){
-		for(int c=0; c<tot; c++){
-			if(est[c].id == id){
-				e = strcmp( est[c].nome, n.nome );
+	do{
+		printf("Nome: ");
+		scanf("%s", n.nome);	
+		int e=0;
+		if( verificar_nome(nome_arq, tot, n.nome) ){
+			for(int c=0; c<tot; c++){
+				if(est[c].id == id){
+					e = strcmp( est[c].nome, n.nome );
+				}
 			}
 		}
-	}
-	if(e){
-		puts("Ja existe uma ferramenta com este nome.\nTente novamente.(o nome antigo eh aceitavel).\n");
-		goto N;
-	}
+		if(e){
+			puts("Ja existe uma ferramenta com este nome.\nTente novamente.(o nome antigo eh aceitavel).\n");
+		}else{
+			break;
+		}
+	}while(1);
 	printf("Qt atual: ");
 	scanf("%d", &n.qt);
 	printf("Custo atual: ");
-	scanf("%f", &n.custo);	
+	scanf("%f", &n.custo);
 	for(int c=0; c<tot; c++){
 		if(est[c].id == id){
 			est[c] = n;
@@ -233,9 +234,6 @@ int verificar_nome(char *nome_arq, int tot, char *nome_ferramenta){
 	FILE *fp = fopen(nome_arq, "rb");
 	validar_FILE(fp, "verificar_nome", 9);
 	FUNC est[tot];
-	// for(int c=0; c<tot; c++){
-    //     fread(&est[c], sizeof(FUNC), 1, fp);
-    // }
 	fread(est, sizeof(FUNC), tot, fp);
 	fclose(fp);
 	for(int c=0; c<tot; c++){
@@ -292,7 +290,6 @@ void ordem_alfabetica(char *nome_arq, int tot){
 	validar_FILE(fp, "ordem_alfabetica", 13);	
 	fread(est, sizeof(FUNC), tot, fp);
 	fclose(fp);
-
 	// ordem crescente:
 	for( i=0;i<tot;i++){
         for( j=0;j<tot;j++){
