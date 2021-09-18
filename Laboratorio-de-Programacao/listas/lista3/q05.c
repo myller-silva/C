@@ -6,9 +6,9 @@
 int main(){
   char string1[TAM], string2[TAM];
   char *pS1=NULL, *pS2=NULL;
+  int diferente = 0;
   pS1 = &string1[0];
   pS2 = string2;
-  int diferente = 0;
 
   puts("Digite a primeira string: ");
   fgets(pS1, TAM, stdin);

@@ -5,7 +5,7 @@
 #define TAMX 30 
 
 int main(void) {
-  int f[TAMF] = {0}, x[TAMX] = {0};  //entendi, obrigado
+  int f[TAMF] = {0}, x[TAMX] = {0}; 
   srand(time(NULL)); //semente
   int *px=NULL, *pf=NULL; 
   int e=0, c=0, soma=0;

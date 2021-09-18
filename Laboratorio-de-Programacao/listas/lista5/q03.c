@@ -11,7 +11,7 @@ int main (){
   // alocação dinamica
   v_linhas = realloc(v_linhas, n*sizeof(n));
   matriz = malloc(n*n*sizeof(n));
-  // gerar valores 
+  // gerar valores
   for(c=0; c<n*n; c++){
     *(matriz + c) = rand()%(TAM*2)-TAM;
   }
