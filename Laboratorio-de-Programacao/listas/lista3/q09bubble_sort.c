@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+
 #define TAM 15
 
 int main(void) {
@@ -21,6 +22,7 @@ int main(void) {
   for(int c=0;c<TAM;c++){
     printf("%d ", *(pV+c));
   } 
+
   //bubble sort
   int k, j, auxiliar;
   for (k = TAM - 1; k > 0; k--) {
@@ -32,6 +34,7 @@ int main(void) {
         }
     }
   } 
+
   puts("\nO vetor ordenado:");
   for(int c=0;c<TAM;c++){
     printf("%d ", *(pV+c));
