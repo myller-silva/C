@@ -11,7 +11,9 @@ int main(void) {
   int temp=0      ;
   puts("Digite o intervalo desejado: ");
   scanf("%d", &intervalo);
+
   srand(time(NULL)); //plantando a semente
+
   // gerar os numeros pseudo aleatorios:
   for(int c=0;c<TAM;c++){
     vetor[c] = rand()%intervalo;
@@ -32,9 +34,11 @@ int main(void) {
       }
     }
   } 
+
   puts("\nO vetor ordenado:");
   for(int c=0;c<TAM;c++){
     printf("%d ", vetor[c]); //*(vetor+c)
   }
+  
   return 0;
 }
