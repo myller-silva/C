@@ -19,11 +19,13 @@ int main(void) {
     vetor[c] = rand()%intervalo;
   }
   pV = &vetor[0]; 
+  
   //mostrando o vetor
   puts("O vetor gerado foi:");
   for(int c=0;c<TAM;c++){
     printf("%d ", *(pV+c));
   }   
+
   //ordenando por seleção  
   for(int c=0;c<TAM-1;c++){
     for(int j=c+1; j<TAM;j++){
