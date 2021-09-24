@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <time.h>
 
-// int:
 int *random_vec_i(int tam , int max, int min){
 	srand(time(NULL));
 	int *v=malloc(sizeof(int)*tam);
@@ -47,6 +46,15 @@ int max_vec_i(int *v, int tam){
 	return max;
 }
 
+int x_in_vec_i(int *v, int tam, int x){
+	for(int c=0; c<tam; c++){
+		if(v[c] == x){
+			return 1;
+		}
+	}
+	return 0;
+}
+
 float media_vec_i(int *v, int tam){
 	float me=0;
 	for(int c=0; c<tam; c++){
@@ -75,6 +83,8 @@ float mediana_vec_i(int *v, int tam ){
 	return (tam%2)?temp[tam/2] :  ((float)temp[tam/2] + temp[tam/2 -1])/2.0;
 }
 
+
+/* 
 int moda_vec_i(int *v, int tam){
 	int *repeticoes = malloc( sizeof(int)*tam );
 	int *cont = malloc( sizeof(int)*tam );	
@@ -102,6 +112,58 @@ int moda_vec_i(int *v, int tam){
 	}
 	return e;
 }
+*/
+
+// beginning
+int *moda_vec_i(int *v, int tam, int *qt){
+	int *moda = NULL; 
+	int *cont = malloc( sizeof(int)*tam );
+	int c=0, k=0, i=0;
+	
+	for(c=0; c<tam; c++){
+		for(k=0; k<tam; k++){
+			if(v[c]==v[k]){
+				cont[c]++;			
+			}
+		}
+	}
+	int max = max_vec_i(cont, tam);
+	for(c=0; c<tam; c++){
+		if(cont[c] == max ){
+			i++;				
+		}
+	}
+	moda = malloc( sizeof(int)*i );
+	int aux=0;
+	for(c=0; c<tam; c++){
+		if(cont[c] == max){
+			moda[aux++] = v[c];	
+		}
+	}
+	free(cont);
+	
+	int aux2=0;
+	int *moda2 = malloc(sizeof(int));
+	for(int c=0; c<aux; c++){
+		if(c==0){
+			moda2[aux2++] = moda[c];
+		}
+		if( !x_in_vec_i(moda2, aux2, moda[c]) ){
+			moda2 = realloc(moda2, sizeof(int)*(aux2+1));
+			moda2[aux2++] = moda[c];
+		}
+	}
+	if(aux2==tam){
+		*qt = 0;
+		// moda2 = NULL;
+		return NULL;
+	}
+	*qt = aux2;
+	return moda2;
+}
+
+// finish
+
 
 
 // >>> ordenacao <<<
@@ -146,4 +208,3 @@ int *sort_i(int *v, int tam){
 
 	return temp;
 }
-

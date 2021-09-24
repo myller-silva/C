@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 
-float *random_vec_f(int tam, int LS, int LI){
+float *random_vec_f(int tam, float LS, float LI){
 	srand(time(NULL));
 	float *v=malloc(sizeof(float)*tam) ;  
   for(int c=0; c<tam; c++){
@@ -46,6 +46,15 @@ float max_vec_f(float *v, int tam){
 	return max;
 }
 
+int x_in_vec_f(float *v, int tam, float x){
+	for(int c=0; c<tam; c++){
+		if(v[c] == x){
+			return 1;
+		}
+	}
+	return 0;
+}
+
 float media_vec_f(float *v, int tam){
 	float me=0;
 	for(int c=0; c<tam; c++){
@@ -74,7 +83,7 @@ float mediana_vec_f(float *v, int tam ){
 	}
 	return (tam%2)?temp[tam/2] : (temp[tam/2] + temp[(tam/2)-1]) / 2.0 ;
 }
-
+/* 
 float moda_vec_f(float *v, int tam){
 	float *repeticoes = malloc( sizeof(float)*tam );
 	int *cont = malloc( sizeof(int)*tam );
@@ -105,8 +114,58 @@ float moda_vec_f(float *v, int tam){
 	
 	exit(1);
 }
-// vetor de modas:
+*/
 
+// BUG:
+// vetor de modas:
+// beginning
+float *moda_vec_f(float *v, int tam, int *qt){
+	float *moda = NULL; 
+	float *cont = malloc( sizeof(float)*tam );
+	int c=0, k=0, i=0;
+	
+	for(c=0; c<tam; c++){
+		for(k=0; k<tam; k++){
+			if(v[c]==v[k]){
+				cont[c]++;			
+			}
+		}
+	}
+	int max = max_vec_f(cont, tam);
+	for(c=0; c<tam; c++){
+		if(cont[c] == max ){
+			i++;				
+		}
+	}
+	moda = malloc( sizeof(float)*i );
+	int aux=0;
+	for(c=0; c<tam; c++){
+		if(cont[c] == max){
+			moda[aux++] = v[c];	
+		}
+	}
+	free(cont);
+	
+	int aux2=0;
+	float *moda2 = malloc(sizeof(float));
+	for(int c=0; c<aux; c++){
+		if(c==0){
+			moda2[aux2++] = moda[c];
+		}
+		if( !x_in_vec_f(moda2, aux2, moda[c]) ){
+			moda2 = realloc(moda2, sizeof(float)*(aux2+1));
+			moda2[aux2++] = moda[c];
+		}
+	}
+	if(aux2==tam){
+		*qt = 0;
+		// moda2 = NULL;
+		return NULL;
+	}
+	*qt = aux2;
+	return moda2;
+}
+// finish
 
 
 
