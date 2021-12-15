@@ -1,8 +1,8 @@
-Em todas as quest ̃oes a seguir, utilize apenas aritm ́etica de ponteiros para manipular as ma- trizes/vetores.
+Em todas as questoes a seguir, utilize apenas aritmetica de ponteiros para manipular as ma- trizes/vetores.
 
-Quest ̃ao 1: [2,5 pontos] Escreva um programa em C que receba dois vetores de inteiros A e B com dimens ̃oes k e m, respectiva- mente. Os valores de k e m devem ser fornecidos por linha de comando (argc e argv). Crie um vetor C com os elementos de A que n ̃ao pertencem a B. Se A e B forem iguais, uma mensagem deve ser exibida.
-Quest ̃ao 2: [2,5 pontos] Escreva um programa em C que organize em um vetor V os endere ̧cos da primeira ocorrˆencia de valor par e a primeira ocorrˆencia de valor impar em um vetor de inteiro alocado dinamicamente.
-Quest ̃ao 3: [2,5 pontos] Escreva uma fun ̧c ̃ao em C que receba uma string, um caracter c e o ponteiro para um buffer. O buffer deve conter a string recebida at ́e a primeira ocorrˆencia de c. A func ̧ ̃ao tamb ́em deve retornar a quantidade de caracteres v ́alidos escritos no buffer. N ̃ao use as fun ̧c ̃oes da string.h.
-Quest ̃ao 4: [2,5 pontos] Dado um vetor de inteiros V e um valor x tamb ́em inteiro, escreva uma fun ̧c ̃ao em C que retorne o endere ̧co da u ́ltima ocorrˆencia de x em V . Se x n ̃ao aparecer em V , a func ̧ ̃ao deve retornar um ponteiro nulo.
+questao 1: [2,5 pontos] Escreva um programa em C que receba dois vetores de inteiros A e B com dimens ̃oes k e m, respectiva- mente. Os valores de k e m devem ser fornecidos por linha de comando (argc e argv). Crie um vetor C com os elementos de A que n ̃ao pertencem a B. Se A e B forem iguais, uma mensagem deve ser exibida.
+questao 2: [2,5 pontos] Escreva um programa em C que organize em um vetor V os endere ̧cos da primeira ocorrencia de valor par e a primeira ocorrencia de valor impar em um vetor de inteiro alocado dinamicamente.
+questao 3: [2,5 pontos] Escreva uma fun ̧c ̃ao em C que receba uma string, um caracter c e o ponteiro para um buffer. O buffer deve conter a string recebida at ́e a primeira ocorrencia de c. A func ̧ ̃ao tamb ́em deve retornar a quantidade de caracteres v ́alidos escritos no buffer. N ̃ao use as fun ̧c ̃oes da string.h.
+questao 4: [2,5 pontos] Dado um vetor de inteiros V e um valor x tamb ́em inteiro, escreva uma fun ̧c ̃ao em C que retorne o endere ̧co da u ́ltima ocorrencia de x em V . Se x n ̃ao aparecer em V , a func ̧ ̃ao deve retornar um ponteiro nulo.
 
-Na terceira e quarta quest ̃oes, vocˆe deve construir apenas a fun ̧c ̃ao solicitada. N ̃ao  ́e necess ́ario escrever a fun ̧c ̃ao main().
+Na terceira e quarta quest ̃oes, voce deve construir apenas a fun ̧c ̃ao solicitada. N ̃ao  ́e necess ́ario escrever a fun ̧c ̃ao main().
